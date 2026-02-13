@@ -6,81 +6,85 @@
 <title>Niku Love Kuku 💕</title>
 
 <style>
-* { margin:0; padding:0; box-sizing:border-box; }
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
 
 body {
   font-family: Arial, sans-serif;
-  background: linear-gradient(135deg,#ff9a9e,#fad0c4);
-  display:flex;
-  justify-content:center;
-  align-items:center;
-  height:100vh;
-  overflow:hidden;
+  background: linear-gradient(135deg, #ff758c, #ff7eb3);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  text-align: center;
+  overflow: hidden;
+  padding: 20px;
+  transition: 0.5s;
 }
 
 .container {
-  text-align:center;
-  background:white;
-  padding:25px;
-  border-radius:20px;
-  width:90%;
-  max-width:400px;
-  position:relative;
-  box-shadow:0 10px 25px rgba(0,0,0,0.2);
-  animation:fadeIn 1s ease;
+  background: white;
+  padding: 25px;
+  border-radius: 20px;
+  width: 100%;
+  max-width: 400px;
+  position: relative;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.2);
 }
 
 h1 {
-  color:#ff4d6d;
-  margin-bottom:10px;
+  color: #ff4d6d;
+  margin-bottom: 10px;
 }
 
 h2 {
-  margin:10px 0;
+  margin: 10px 0;
 }
 
 img {
-  width:100%;
-  max-width:220px;
-  border-radius:15px;
-  margin:15px 0;
+  width: 100%;
+  max-width: 250px;
+  border-radius: 15px;
+  margin: 15px 0;
 }
 
 button {
-  padding:12px;
-  border:none;
-  border-radius:25px;
-  font-size:16px;
-  cursor:pointer;
-  width:100%;
-  margin-top:10px;
-  transition:0.3s;
+  padding: 12px;
+  font-size: 16px;
+  border: none;
+  border-radius: 30px;
+  cursor: pointer;
+  width: 100%;
+  margin-top: 10px;
+  transition: 0.3s;
 }
 
 #yesBtn {
-  background:#ff4d6d;
-  color:white;
+  background: #ff4d6d;
+  color: white;
+}
+
+#yesBtn:hover {
+  transform: scale(1.05);
 }
 
 #noBtn {
-  background:#ddd;
-  position:absolute;
+  background: #ddd;
+  color: #333;
+  position: absolute;
 }
-
-@keyframes fadeIn {
-  from {opacity:0; transform:translateY(20px);}
-  to {opacity:1; transform:translateY(0);}
-}
-
 .heart {
-  position:absolute;
-  font-size:20px;
-  animation:float 3s linear infinite;
+  position: absolute;
+  font-size: 20px;
+  animation: float 3s linear infinite;
 }
 
 @keyframes float {
-  from {transform:translateY(0); opacity:1;}
-  to {transform:translateY(-600px); opacity:0;}
+  from { transform: translateY(0); opacity: 1; }
+  to { transform: translateY(-600px); opacity: 0; }
 }
 </style>
 </head>
@@ -89,32 +93,22 @@ button {
 
 <div class="container">
   <h1>💕 Niku Love Kuku 💕</h1>
-  <h2 id="question">Will you be my Valentine? 🥺</h2>
+  <h2>Will you be my Valentine?</h2>
 
-  <img id="gif.src="BesitoCatloveGIF.gif";
-
+  <!-- NEW CUTER GIF -->
+  <img id="mainGif" src="https://media.giphy.com/media/JIX9t2j0ZTN9S/giphy.gif">
 
   <button id="yesBtn">Yes 💖</button>
-  <button id="noBtn">No 😢</button>
+  <button id="noBtn">No 💔</button>
 </div>
 
 <script>
 const noBtn = document.getElementById("noBtn");
 const yesBtn = document.getElementById("yesBtn");
-const question = document.getElementById("question");
-const gif = document.getElementById("gif");
-
+const mainGif = document.getElementById("mainGif");
 let count = 0;
 
-// Background music
-const music = new Audio("https://cdn.pixabay.com/download/audio/2022/03/15/audio_c8b3c1c5d1.mp3?filename=romantic-ambient-110397.mp3");
-music.loop = true;
-document.body.addEventListener("click", () => {
-  music.play().catch(()=>{});
-}, {once:true});
-
-// No button movement
-function moveNo() {
+function moveButton() {
   const container = document.querySelector(".container");
   const maxX = container.clientWidth - noBtn.offsetWidth;
   const maxY = container.clientHeight - noBtn.offsetHeight;
@@ -124,40 +118,37 @@ function moveNo() {
 
   count++;
 
-  if(count==1) noBtn.innerText="Are you sure? 🥺";
-  if(count==2) noBtn.innerText="Really sure?? 😭";
-  if(count==3) noBtn.innerText="Don't do this 😢";
-  if(count>=4) noBtn.innerText="That’s illegal 😤";
+  if (count === 1) noBtn.innerText = "Are you sure? 🥺";
+  if (count === 2) noBtn.innerText = "Really sure?? 😭";
+  if (count === 3) noBtn.innerText = "Don't do this 😢";
+  if (count >= 4) noBtn.innerText = "That’s illegal 😤";
 
-  noBtn.style.transform = "scale(" + Math.max(0.4,1-count*0.1) + ")";
+  const scale = Math.max(0.5, 1 - count * 0.1);
+  noBtn.style.transform = `scale(${scale})`;
 }
 
-noBtn.addEventListener("mouseover", moveNo);
+noBtn.addEventListener("mouseover", moveButton);
 noBtn.addEventListener("touchstart", function(e){
   e.preventDefault();
-  moveNo();
+  moveButton();
 });
 
-// Yes button
-yesBtn.addEventListener("click", ()=>{
-  document.body.style.background="#ff4d6d";
-  question.innerText="YAYYYY 💕 You made me the happiest person alive!";
-  gif.src="https://media.giphy.com/media/111ebonMs90YLu/giphy.gif";
-  noBtn.style.display="none";
+yesBtn.addEventListener("click", function() {
+  document.body.style.background = "#ff4d6d";
+  mainGif.src = "https://media.giphy.com/media/3oriO0OEd9QIDdllqo/giphy.gif";
+  noBtn.style.display = "none";
 
-  setInterval(()=>{
-    let heart=document.createElement("div");
+  setInterval(() => {
+    let heart = document.createElement("div");
     heart.classList.add("heart");
-    heart.innerHTML="💖";
-    heart.style.left=Math.random()*100+"vw";
-    heart.style.top="100vh";
-    heart.style.fontSize=(Math.random()*20+20)+"px";
+    heart.innerHTML = "💖";
+    heart.style.left = Math.random() * 100 + "vw";
+    heart.style.top = "100vh";
     document.body.appendChild(heart);
-    setTimeout(()=>heart.remove(),3000);
-  },300);
+    setTimeout(() => heart.remove(), 3000);
+  }, 300);
 });
 </script>
 
 </body>
 </html>
-

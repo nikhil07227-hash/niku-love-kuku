@@ -1,93 +1,86 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>For My Love 💖</title>
+<title>Niku Love Kuku 💕</title>
 
 <style>
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
+* { margin:0; padding:0; box-sizing:border-box; }
 
 body {
   font-family: Arial, sans-serif;
-  background: linear-gradient(135deg, #ff758c, #ff7eb3);
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  min-height: 100vh;
-  text-align: center;
-  padding: 20px;
+  background: linear-gradient(135deg,#ff9a9e,#fad0c4);
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  height:100vh;
+  overflow:hidden;
 }
 
 .container {
-  background: white;
-  padding: 30px;
-  border-radius: 20px;
-  box-shadow: 0 10px 25px rgba(0,0,0,0.2);
-  max-width: 400px;
-  width: 100%;
-  animation: fadeIn 1.2s ease-in-out;
+  text-align:center;
+  background:white;
+  padding:25px;
+  border-radius:20px;
+  width:90%;
+  max-width:400px;
+  position:relative;
+  box-shadow:0 10px 25px rgba(0,0,0,0.2);
+  animation:fadeIn 1s ease;
 }
 
 h1 {
-  font-size: 28px;
-  margin-bottom: 15px;
-  color: #ff4d6d;
+  color:#ff4d6d;
+  margin-bottom:10px;
 }
 
-p {
-  font-size: 18px;
-  margin-bottom: 20px;
-  color: #444;
+h2 {
+  margin:10px 0;
 }
 
 img {
-  width: 100%;
-  max-width: 250px;
-  border-radius: 15px;
-  margin-bottom: 20px;
+  width:100%;
+  max-width:220px;
+  border-radius:15px;
+  margin:15px 0;
 }
 
 button {
-  background: #ff4d6d;
-  color: white;
-  border: none;
-  padding: 12px 20px;
-  font-size: 18px;
-  border-radius: 30px;
-  cursor: pointer;
-  transition: 0.3s;
-  width: 100%;
+  padding:12px;
+  border:none;
+  border-radius:25px;
+  font-size:16px;
+  cursor:pointer;
+  width:100%;
+  margin-top:10px;
+  transition:0.3s;
 }
 
-button:hover {
-  background: #ff1e4d;
-  transform: scale(1.05);
+#yesBtn {
+  background:#ff4d6d;
+  color:white;
+}
+
+#noBtn {
+  background:#ddd;
+  position:absolute;
 }
 
 @keyframes fadeIn {
-  from { opacity: 0; transform: translateY(20px); }
-  to { opacity: 1; transform: translateY(0); }
+  from {opacity:0; transform:translateY(20px);}
+  to {opacity:1; transform:translateY(0);}
 }
 
-/* Mobile adjustments */
-@media (max-width: 480px) {
-  h1 {
-    font-size: 22px;
-  }
+.heart {
+  position:absolute;
+  font-size:20px;
+  animation:float 3s linear infinite;
+}
 
-  p {
-    font-size: 16px;
-  }
-
-  button {
-    font-size: 16px;
-    padding: 10px;
-  }
+@keyframes float {
+  from {transform:translateY(0); opacity:1;}
+  to {transform:translateY(-600px); opacity:0;}
 }
 </style>
 </head>
@@ -95,24 +88,73 @@ button:hover {
 <body>
 
 <div class="container">
-  <h1>Will You Be My Valentine? 💖</h1>
+  <h1>💕 Niku Love Kuku 💕</h1>
+  <h2 id="question">Will you be my Valentine? 🥺</h2>
 
-  <!-- NEW CUTE GIF -->
-  <img src="https://media.giphy.com/media/MDJ9IbxxvDUQM/giphy.gif" alt="Cute Love GIF">
+  <img id="gif" src="https://media.giphy.com/media/JIX9t2j0ZTN9S/giphy.gif">
 
-  <p>You make my world brighter every single day ✨</p>
-
-  <button onclick="showLove()">Yes 💕</button>
+  <button id="yesBtn">Yes 💖</button>
+  <button id="noBtn">No 😢</button>
 </div>
 
 <script>
-function showLove() {
-  document.querySelector(".container").innerHTML = `
-    <h1>YAYYY!!! 💖😍</h1>
-    <img src="https://media.giphy.com/media/3oriO0OEd9QIDdllqo/giphy.gif">
-    <p>I love you soooo much ❤️</p>
-  `;
+const noBtn = document.getElementById("noBtn");
+const yesBtn = document.getElementById("yesBtn");
+const question = document.getElementById("question");
+const gif = document.getElementById("gif");
+
+let count = 0;
+
+// Background music
+const music = new Audio("https://cdn.pixabay.com/download/audio/2022/03/15/audio_c8b3c1c5d1.mp3?filename=romantic-ambient-110397.mp3");
+music.loop = true;
+document.body.addEventListener("click", () => {
+  music.play().catch(()=>{});
+}, {once:true});
+
+// No button movement
+function moveNo() {
+  const container = document.querySelector(".container");
+  const maxX = container.clientWidth - noBtn.offsetWidth;
+  const maxY = container.clientHeight - noBtn.offsetHeight;
+
+  noBtn.style.left = Math.random() * maxX + "px";
+  noBtn.style.top = Math.random() * maxY + "px";
+
+  count++;
+
+  if(count==1) noBtn.innerText="Are you sure? 🥺";
+  if(count==2) noBtn.innerText="Really sure?? 😭";
+  if(count==3) noBtn.innerText="Don't do this 😢";
+  if(count>=4) noBtn.innerText="That’s illegal 😤";
+
+  noBtn.style.transform = "scale(" + Math.max(0.4,1-count*0.1) + ")";
 }
+
+noBtn.addEventListener("mouseover", moveNo);
+noBtn.addEventListener("touchstart", function(e){
+  e.preventDefault();
+  moveNo();
+});
+
+// Yes button
+yesBtn.addEventListener("click", ()=>{
+  document.body.style.background="#ff4d6d";
+  question.innerText="YAYYYY 💕 You made me the happiest person alive!";
+  gif.src="https://media.giphy.com/media/111ebonMs90YLu/giphy.gif";
+  noBtn.style.display="none";
+
+  setInterval(()=>{
+    let heart=document.createElement("div");
+    heart.classList.add("heart");
+    heart.innerHTML="💖";
+    heart.style.left=Math.random()*100+"vw";
+    heart.style.top="100vh";
+    heart.style.fontSize=(Math.random()*20+20)+"px";
+    document.body.appendChild(heart);
+    setTimeout(()=>heart.remove(),3000);
+  },300);
+});
 </script>
 
 </body>

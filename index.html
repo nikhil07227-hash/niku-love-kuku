@@ -3,97 +3,91 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Niku Love Kuku 💕</title>
+<title>For My Love 💖</title>
 
 <style>
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
 body {
-    margin: 0;
-    padding: 0;
-    font-family: 'Arial Rounded MT Bold', sans-serif;
-    background: #FFF0F5;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
-    text-align: center;
-    overflow: hidden;
-    transition: background 0.6s ease;
+  font-family: Arial, sans-serif;
+  background: linear-gradient(135deg, #ff758c, #ff7eb3);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  text-align: center;
+  padding: 20px;
 }
 
 .container {
-    width: 90%;
-    max-width: 400px;
-    position: relative;
-    animation: fadeIn 1.5s ease;
-}
-
-@keyframes fadeIn {
-    from { opacity: 0; transform: translateY(20px); }
-    to { opacity: 1; transform: translateY(0); }
+  background: white;
+  padding: 30px;
+  border-radius: 20px;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+  max-width: 400px;
+  width: 100%;
+  animation: fadeIn 1.2s ease-in-out;
 }
 
 h1 {
-    color: #FF4D88;
-    font-size: 28px;
-    margin-bottom: 10px;
-}
-
-h2 {
-    font-size: 22px;
-    margin: 10px 0;
+  font-size: 28px;
+  margin-bottom: 15px;
+  color: #ff4d6d;
 }
 
 p {
-    font-size: 18px;
-    margin-bottom: 20px;
+  font-size: 18px;
+  margin-bottom: 20px;
+  color: #444;
 }
 
 img {
-    width: 220px;
-    border-radius: 20px;
-    transition: transform 0.4s ease;
+  width: 100%;
+  max-width: 250px;
+  border-radius: 15px;
+  margin-bottom: 20px;
 }
 
 button {
-    width: 100%;
-    padding: 14px;
-    margin: 10px 0;
-    font-size: 18px;
-    border: none;
-    border-radius: 30px;
-    cursor: pointer;
-    transition: all 0.3s ease;
+  background: #ff4d6d;
+  color: white;
+  border: none;
+  padding: 12px 20px;
+  font-size: 18px;
+  border-radius: 30px;
+  cursor: pointer;
+  transition: 0.3s;
+  width: 100%;
 }
 
-#yesBtn {
-    background: #FF4D88;
-    color: white;
-    animation: pulse 1.5s infinite;
+button:hover {
+  background: #ff1e4d;
+  transform: scale(1.05);
 }
 
-#noBtn {
-    background: #ddd;
-    color: #444;
-    position: absolute;
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
 }
 
-@keyframes pulse {
-    0% { transform: scale(1); }
-    50% { transform: scale(1.08); }
-    100% { transform: scale(1); }
-}
+/* Mobile adjustments */
+@media (max-width: 480px) {
+  h1 {
+    font-size: 22px;
+  }
 
-.heart {
-    position: absolute;
-    color: white;
-    font-size: 20px;
-    animation: float 3s linear infinite;
-    pointer-events: none;
-}
+  p {
+    font-size: 16px;
+  }
 
-@keyframes float {
-    from { transform: translateY(0); opacity: 1; }
-    to { transform: translateY(-600px); opacity: 0; }
+  button {
+    font-size: 16px;
+    padding: 10px;
+  }
 }
 </style>
 </head>
@@ -101,85 +95,24 @@ button {
 <body>
 
 <div class="container">
-    <h1>💕 Niku Love Kuku 💕</h1>
+  <h1>Will You Be My Valentine? 💖</h1>
 
-    <img id="mainGif" src="https://media.giphy.com/media/MDJ9IbxxvDUQM/giphy.gif">
+  <!-- NEW CUTE GIF -->
+  <img src="https://media.giphy.com/media/MDJ9IbxxvDUQM/giphy.gif" alt="Cute Love GIF">
 
-    <h2 id="mainText">Will you be my Valentine?</h2>
-    <p>Please? 🥺</p>
+  <p>You make my world brighter every single day ✨</p>
 
-    <button id="yesBtn">💖 Yes</button>
-    <button id="noBtn">💔 No</button>
+  <button onclick="showLove()">Yes 💕</button>
 </div>
 
 <script>
-const noBtn = document.getElementById("noBtn");
-const yesBtn = document.getElementById("yesBtn");
-const mainText = document.getElementById("mainText");
-const mainGif = document.getElementById("mainGif");
-let noClickCount = 0;
-
-// 🎵 Romantic background music (starts after first tap)
-const music = new Audio("https://cdn.pixabay.com/download/audio/2022/03/15/audio_c8b3c1c5d1.mp3?filename=romantic-ambient-110397.mp3");
-music.loop = true;
-
-document.body.addEventListener("click", function() {
-    music.play().catch(()=>{});
-}, { once: true });
-
-// 😈 No button chaos
-function moveButton() {
-    const container = document.querySelector(".container");
-    const maxX = container.clientWidth - noBtn.offsetWidth;
-    const maxY = container.clientHeight - noBtn.offsetHeight;
-
-    const randomX = Math.random() * maxX;
-    const randomY = Math.random() * maxY;
-
-    noBtn.style.left = randomX + "px";
-    noBtn.style.top = randomY + "px";
-
-    noClickCount++;
-
-    if (noClickCount === 1) noBtn.innerText = "Are you sure? 🥺";
-    if (noClickCount === 2) noBtn.innerText = "Really sure?? 😢";
-    if (noClickCount === 3) noBtn.innerText = "Don't do this 😭";
-    if (noClickCount === 4) noBtn.innerText = "I will cry.";
-    if (noClickCount >= 5) noBtn.innerText = "That’s illegal 😤";
-
-    // shrink effect
-    const scale = Math.max(0.4, 1 - noClickCount * 0.1);
-    noBtn.style.transform = `scale(${scale})`;
+function showLove() {
+  document.querySelector(".container").innerHTML = `
+    <h1>YAYYY!!! 💖😍</h1>
+    <img src="https://media.giphy.com/media/3oriO0OEd9QIDdllqo/giphy.gif">
+    <p>I love you soooo much ❤️</p>
+  `;
 }
-
-noBtn.addEventListener("touchstart", function(e) {
-    e.preventDefault();
-    moveButton();
-});
-
-noBtn.addEventListener("mouseover", moveButton);
-
-// 💖 YES celebration
-yesBtn.addEventListener("click", function() {
-    document.body.style.background = "#FF6B9E";
-    mainText.innerText = "YAYYYY 💘 You just made me the happiest person alive!!!";
-    mainGif.src = "https://media.giphy.com/media/3o6fJ1BM7R2EBRDnxK/giphy.gif";
-    noBtn.style.display = "none";
-
-    // continuous floating hearts
-    setInterval(() => {
-        let heart = document.createElement("div");
-        heart.classList.add("heart");
-        heart.innerHTML = "💖";
-        heart.style.left = Math.random() * 100 + "vw";
-        heart.style.top = "100vh";
-        heart.style.fontSize = (Math.random() * 20 + 20) + "px";
-        heart.style.animationDuration = (Math.random() * 2 + 2) + "s";
-        document.body.appendChild(heart);
-
-        setTimeout(() => heart.remove(), 3000);
-    }, 300);
-});
 </script>
 
 </body>

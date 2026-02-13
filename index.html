@@ -1,90 +1,99 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Niku Love Kuku 💕</title>
 
 <style>
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
-
 body {
-  font-family: Arial, sans-serif;
-  background: linear-gradient(135deg, #ff758c, #ff7eb3);
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  min-height: 100vh;
-  text-align: center;
-  overflow: hidden;
-  padding: 20px;
-  transition: 0.5s;
+    margin: 0;
+    padding: 0;
+    font-family: 'Arial Rounded MT Bold', sans-serif;
+    background: #FFF0F5;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    text-align: center;
+    overflow: hidden;
+    transition: background 0.6s ease;
 }
 
 .container {
-  background: white;
-  padding: 25px;
-  border-radius: 20px;
-  width: 100%;
-  max-width: 400px;
-  position: relative;
-  box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+    width: 90%;
+    max-width: 400px;
+    position: relative;
+    animation: fadeIn 1.5s ease;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
 }
 
 h1 {
-  color: #ff4d6d;
-  margin-bottom: 10px;
+    color: #FF4D88;
+    font-size: 28px;
+    margin-bottom: 10px;
 }
 
 h2 {
-  margin: 10px 0;
+    font-size: 22px;
+    margin: 10px 0;
+}
+
+p {
+    font-size: 18px;
+    margin-bottom: 20px;
 }
 
 img {
-  width: 100%;
-  max-width: 250px;
-  border-radius: 15px;
-  margin: 15px 0;
+    width: 220px;
+    border-radius: 20px;
+    transition: transform 0.4s ease;
 }
 
 button {
-  padding: 12px;
-  font-size: 16px;
-  border: none;
-  border-radius: 30px;
-  cursor: pointer;
-  width: 100%;
-  margin-top: 10px;
-  transition: 0.3s;
+    width: 100%;
+    padding: 14px;
+    margin: 10px 0;
+    font-size: 18px;
+    border: none;
+    border-radius: 30px;
+    cursor: pointer;
+    transition: all 0.3s ease;
 }
 
 #yesBtn {
-  background: #ff4d6d;
-  color: white;
-}
-
-#yesBtn:hover {
-  transform: scale(1.05);
+    background: #FF4D88;
+    color: white;
+    animation: pulse 1.5s infinite;
 }
 
 #noBtn {
-  background: #ddd;
-  color: #333;
-  position: absolute;
+    background: #ddd;
+    color: #444;
+    position: absolute;
 }
+
+@keyframes pulse {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.08); }
+    100% { transform: scale(1); }
+}
+
 .heart {
-  position: absolute;
-  font-size: 20px;
-  animation: float 3s linear infinite;
+    position: absolute;
+    color: white;
+    font-size: 20px;
+    animation: float 3s linear infinite;
+    pointer-events: none;
 }
 
 @keyframes float {
-  from { transform: translateY(0); opacity: 1; }
-  to { transform: translateY(-600px); opacity: 0; }
+    from { transform: translateY(0); opacity: 1; }
+    to { transform: translateY(-600px); opacity: 0; }
 }
 </style>
 </head>
@@ -92,61 +101,84 @@ button {
 <body>
 
 <div class="container">
-  <h1>💕 Niku Love Kuku 💕</h1>
-  <h2>Will you be my Valentine?</h2>
+    <h1>💕 Niku Love Kuku 💕</h1>
 
-  <!-- NEW CUTER GIF -->
-  <img id="mainGif" src="https://media.giphy.com/media/JIX9t2j0ZTN9S/giphy.gif">
+    <img id="mainGif" src="https://media.giphy.com/media/MDJ9IbxxvDUQM/giphy.gif">
 
-  <button id="yesBtn">Yes 💖</button>
-  <button id="noBtn">No 💔</button>
+    <h2 id="mainText">Will you be my Valentine?</h2>
+    <p>Please? 🥺</p>
+
+    <button id="yesBtn">💖 Yes</button>
+    <button id="noBtn">💔 No</button>
 </div>
 
 <script>
 const noBtn = document.getElementById("noBtn");
 const yesBtn = document.getElementById("yesBtn");
+const mainText = document.getElementById("mainText");
 const mainGif = document.getElementById("mainGif");
-let count = 0;
+let noClickCount = 0;
 
+// 🎵 Romantic background music (starts after first tap)
+const music = new Audio("https://cdn.pixabay.com/download/audio/2022/03/15/audio_c8b3c1c5d1.mp3?filename=romantic-ambient-110397.mp3");
+music.loop = true;
+
+document.body.addEventListener("click", function() {
+    music.play().catch(()=>{});
+}, { once: true });
+
+// 😈 No button chaos
 function moveButton() {
-  const container = document.querySelector(".container");
-  const maxX = container.clientWidth - noBtn.offsetWidth;
-  const maxY = container.clientHeight - noBtn.offsetHeight;
+    const container = document.querySelector(".container");
+    const maxX = container.clientWidth - noBtn.offsetWidth;
+    const maxY = container.clientHeight - noBtn.offsetHeight;
 
-  noBtn.style.left = Math.random() * maxX + "px";
-  noBtn.style.top = Math.random() * maxY + "px";
+    const randomX = Math.random() * maxX;
+    const randomY = Math.random() * maxY;
 
-  count++;
+    noBtn.style.left = randomX + "px";
+    noBtn.style.top = randomY + "px";
 
-  if (count === 1) noBtn.innerText = "Are you sure? 🥺";
-  if (count === 2) noBtn.innerText = "Really sure?? 😭";
-  if (count === 3) noBtn.innerText = "Don't do this 😢";
-  if (count >= 4) noBtn.innerText = "That’s illegal 😤";
+    noClickCount++;
 
-  const scale = Math.max(0.5, 1 - count * 0.1);
-  noBtn.style.transform = `scale(${scale})`;
+    if (noClickCount === 1) noBtn.innerText = "Are you sure? 🥺";
+    if (noClickCount === 2) noBtn.innerText = "Really sure?? 😢";
+    if (noClickCount === 3) noBtn.innerText = "Don't do this 😭";
+    if (noClickCount === 4) noBtn.innerText = "I will cry.";
+    if (noClickCount >= 5) noBtn.innerText = "That’s illegal 😤";
+
+    // shrink effect
+    const scale = Math.max(0.4, 1 - noClickCount * 0.1);
+    noBtn.style.transform = `scale(${scale})`;
 }
 
-noBtn.addEventListener("mouseover", moveButton);
-noBtn.addEventListener("touchstart", function(e){
-  e.preventDefault();
-  moveButton();
+noBtn.addEventListener("touchstart", function(e) {
+    e.preventDefault();
+    moveButton();
 });
 
-yesBtn.addEventListener("click", function() {
-  document.body.style.background = "#ff4d6d";
-  mainGif.src = "https://media.giphy.com/media/3oriO0OEd9QIDdllqo/giphy.gif";
-  noBtn.style.display = "none";
+noBtn.addEventListener("mouseover", moveButton);
 
-  setInterval(() => {
-    let heart = document.createElement("div");
-    heart.classList.add("heart");
-    heart.innerHTML = "💖";
-    heart.style.left = Math.random() * 100 + "vw";
-    heart.style.top = "100vh";
-    document.body.appendChild(heart);
-    setTimeout(() => heart.remove(), 3000);
-  }, 300);
+// 💖 YES celebration
+yesBtn.addEventListener("click", function() {
+    document.body.style.background = "#FF6B9E";
+    mainText.innerText = "YAYYYY 💘 You just made me the happiest person alive!!!";
+    mainGif.src = "https://media.giphy.com/media/3o6fJ1BM7R2EBRDnxK/giphy.gif";
+    noBtn.style.display = "none";
+
+    // continuous floating hearts
+    setInterval(() => {
+        let heart = document.createElement("div");
+        heart.classList.add("heart");
+        heart.innerHTML = "💖";
+        heart.style.left = Math.random() * 100 + "vw";
+        heart.style.top = "100vh";
+        heart.style.fontSize = (Math.random() * 20 + 20) + "px";
+        heart.style.animationDuration = (Math.random() * 2 + 2) + "s";
+        document.body.appendChild(heart);
+
+        setTimeout(() => heart.remove(), 3000);
+    }, 300);
 });
 </script>
 
